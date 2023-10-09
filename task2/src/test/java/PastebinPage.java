@@ -3,18 +3,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 
 public class PastebinPage {
 
     private static final String TEXT_FIELD_XPATH = "//*[@id='postform-text']";
-    private static final String PROGRAMING_LANGUAGE_LIST_XPATH = "//*[@id=\"w0\"]/div[5]/div[1]/div[3]/div/span/span[1]";
-    private static final String EXPIRATION_TIME_XPATH = "//*[@id=\"w0\"]/div[5]/div[1]/div[4]/div/span/span[1]/span/span[2]";
+    private static final String PROGRAMING_LANGUAGE_LIST_XPATH = "//*[@id='w0']/div[5]/div[1]/div[3]/div/span/span[1]/span/span[2]";
+    private static final String EXPIRATION_TIME_XPATH = "//*[@id='select2-postform-expiration-container']";
     private static final String PASTE_NAME_FIELD_XPATH = "//input[@id='postform-name']";
-    private static final String SUBMIT_BUTTON_XPATH = "//button[@type='submit']";
+    private static final String SUBMIT_BUTTON_XPATH = "//button[@class='btn -big']";
     private WebDriver driver;
 
     @FindBy(xpath = TEXT_FIELD_XPATH)
@@ -39,11 +36,12 @@ public class PastebinPage {
 
     public void createNewPaste(String code, String syntaxHighlighting, String pasteExpiration, String pasteName) {
         writeCode(code);
+        expirationTime.click();
+        driver.findElement(By.xpath("//li[text() ='" + pasteExpiration + "']")).click();
         setExpirationTime(pasteExpiration);
+        programingLanguageList.click();
+        driver.findElement(By.xpath("//li[text() ='" + syntaxHighlighting + "']")).click();
         setSyntaxHighlighting(syntaxHighlighting);
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath(EXPIRATION_TIME_XPATH)))
-                .click();
         setPasteName(pasteName);
         submitButton.click();
     }
@@ -67,7 +65,7 @@ public class PastebinPage {
     }
 
     public String getTitle() {
-        return driver.findElement(By.xpath("//div[@class='info-top']/h1")).getText();
+        return driver.findElement(By.xpath("//div[@class='info-top']")).getText();
     }
 
     public String getSyntaxHighlighting() {
