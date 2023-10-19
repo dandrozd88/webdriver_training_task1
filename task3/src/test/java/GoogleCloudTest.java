@@ -31,8 +31,6 @@ public class GoogleCloudTest {
     int numberOfGpus = 1;
     private WebDriver driver;
 
-
-
     @Before
     public void setUp() {
         driver = new ChromeDriver();

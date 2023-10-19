@@ -5,7 +5,6 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-// page_url = https://cloud.google.com/
 public class GoogleCloudPage {
     private static final String SEARCH_INPUT_XPATH = "//input[@class='mb2a7b']";
     private static final String SEARCH_ICON_XPATH = "//div[@class='YSM5S']";

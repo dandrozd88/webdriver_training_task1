@@ -257,8 +257,6 @@ public class PricingCalculatorPage {
     public void checkEstimatedCost(String currency, String expectedAmount) {
         String expectedText = "Total Estimated Cost: " + currency + " " + expectedAmount + " per 1 month";
         String actualText = estimatedCost.getText().replace(",", "");
-        System.out.println(expectedText);
-        System.out.println(actualText);
         assertTrue("Estimated cost did not match", actualText.contains(expectedText));
     }
 
